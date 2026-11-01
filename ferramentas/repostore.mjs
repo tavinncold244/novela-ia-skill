@@ -53,5 +53,7 @@ if (cmd === "status") {
   const a = { prompt: readFileSync(arq, "utf8"), aspect_ratio: "9:16", duration_seconds: +seg, conversation_id: conv };
   if (ref) a.video_url = ref;
   const v = await tool("create_video", a);
-  console.log(v.id || JSON.stringify(v));
+  // sem id (ex.: "Você já tem 8 pedidos na fila") → erro, para o lote não esperar um id inválido
+  if (!v.id) { console.error(JSON.stringify(v)); process.exit(1); }
+  console.log(v.id);
 } else throw new Error("comando: status | esperar | criar");

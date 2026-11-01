@@ -1,5 +1,16 @@
 # Aprendizados (atualizar a cada episódio — mais recente no topo)
 
+## 2026-11-01 — ep03 (catador/carteira, arquétipo B) — saida/ep03-catador-carteira.mp4, 2:40, 491 palavras, 0 silêncio, −15,8 LUFS
+- **3 locações = 3 imagens de elenco em 3 conversas** (ep03-casa, ep03-rua, ep03-loja) + Jesus em conversa própria → filas sequenciais rodando EM PARALELO entre si. Rostos/roupas mantidos. Personagem com 2 figurinos (Davi catador / de terno): chave extra `DAVI_TERNO` + `"rotulos": {"DAVI_TERNO": "DAVI"}` no blocos.json (prompt.mjs agora suporta).
+- **Quase tudo em clipes de 1 pessoa só** ("Close-up on X ONLY… nobody else in the frame") → voz no personagem errado caiu a quase zero. Os únicos erros de "quem" foram em clipes com 2 pessoas: C09 (rosto do falante saiu do quadro) e C17 (Bernardo apresentou o RODRIGO como Davi). Regra: 2 pessoas só quando inevitável.
+- **O ÚLTIMO clipe de cada fila sequencial voltou DUPLICADO do anterior** (C04=C03, C06=C05, C22=C21 — md5 igual), mesmo pedindo um por vez. Sempre md5 em todos.
+- Figurino trocado: Rodrigo saiu com o terno do Davi (descrições de 4 pessoas na mesma conversa se misturam) → refazer com `video_url` de um clipe do próprio personagem.
+- **Legenda queimada** voltou 3x (C19 t1, t2; C06 t10). Funcionou: linha no TOPO do prompt "CRITICAL: this video must contain NO TEXT OF ANY KIND on screen…". prompt.mjs agora diz "ABSOLUTELY NO subtitles… each line is spoken only once" (C12 repetiu a fala inteira).
+- **Recusas**: oração com choro/joelhos e Kelly "crying, mascara running" → "the model ended the turn without a video". Passou com tom calmo/esperançoso ("sitting, hands together, calm hopeful face", "sad, regretful, teary eyes"). Referência de clipe com choro também parece puxar recusa — usar ref de clipe calmo do mesmo personagem.
+- **Fila de 8 pedidos é da CONTA**: outra sessão/sócio usando a mesma chave ocupa a fila ("Você já tem 8 pedidos na fila") e `repostore.mjs criar` devolve o erro como texto → o `esperar` fica em loop com id inválido. Checar se o id parece UUID antes de esperar; se fila cheia, esperar e repetir.
+- Sem referência o rosto do protagonista muda um pouco (C06 t12 com ref de outra locação: aceitável, mas não idêntico).
+- Thumb: ChatGPT acertou o texto de primeira com 3 refs (antes/depois do protagonista + vilã em choque) e recorte circular "antes".
+
 ## 2026-11-01 — ep02 (boleira/loja de noivas) — saida/ep02-boleira-noivas.mp4, 2:31, 473 palavras
 - Receita do ep01 (elenco + clipes de 10 s na conversa ancorada) manteve rostos/roupas em 17/17 clipes. Clipe sem elenco no início (C06, C09, C16, C17) também saiu igual.
 - **Voz no personagem errado continua o bug nº 1** (7 de 17 na 1ª passada), mesmo com "SHOT n — close-up on X". O padrão: em clipe de 2 falas, a 2ª pessoa às vezes aparece mexendo a boca na fala da 1ª. **Remédio que funcionou 5/5: clipe com UMA pessoa só na tela** ("Close-up on X ONLY for the whole clip… nobody else in the frame") — e reaproveitar a fala certa do clipe antigo com `ini`/`fim` no `edicao.json` (mesmo arquivo pode entrar 2x com trechos diferentes; criar blocos C09A/C09B etc. em blocos.json para a legenda).

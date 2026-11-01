@@ -28,7 +28,7 @@ function montar(b) {
     "TIMING: the first 1.5 seconds are a silent establishing shot — nobody speaks. Then the dialogue starts and the lines follow each other immediately with no pauses.",
     "SHOTS AND DIALOGUE (Brazilian Portuguese, fast, emotional, every word spoken exactly as written, in this order). The person speaking is ALWAYS the one in close-up and ONLY their lips move, perfectly synced to their own voice; everyone else listens with their mouth closed:",
     ...b.falas.map(([n, emo, txt], i) => `SHOT ${i + 1} — close-up on ${nomeDe(n)}, who says (${emo}): "${txt}"`),
-    "No subtitles, no captions, no on-screen text burned into the image, no music, no narrator. Background signs show only generic words, never character names.",
+    "ABSOLUTELY NO subtitles, no captions, no on-screen text burned into the image, each line is spoken only once, no music, no narrator. Background signs show only generic words, never character names.",
   ].join("\n");
 }
 
